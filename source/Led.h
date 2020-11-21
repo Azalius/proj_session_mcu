@@ -14,6 +14,8 @@ public:
 	void setRed(int value);
 	void setBlue(int value);
 	void setGreen(int value);
+private:
+
 };
 
 #endif /* LED_H_ */
