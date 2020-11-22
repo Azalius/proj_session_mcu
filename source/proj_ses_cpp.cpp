@@ -11,11 +11,13 @@
 #include "clock_config.h"
 #include "MKL27Z644.h"
 #include "fsl_debug_console.h"
+#include "fsl_tpm.h"
 
 #include "Keyboard.h"
 #include "Led.h"
 #include "Fan.h"
-
+#define BOARD_TPM_BASEADDR       TPM2
+#define TPM_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_McgIrc48MClk)
 
 
 /*
@@ -32,12 +34,21 @@ int main(void) {
     BOARD_InitDebugConsole();
 #endif
 
+    CLOCK_SetTpmClock(1U);
+
+    tpm_config_t tpmInfo;
+	TPM_GetDefaultConfig(&tpmInfo);
+	TPM_StartTimer(BOARD_TPM_BASEADDR, kTPM_SystemClock);
+	TPM_Init(BOARD_TPM_BASEADDR, &tpmInfo);
+
 	Keyboard* kb = new Keyboard();
 	Led* led = new Led();
 	Fan* fan = new Fan();
 	int posCursor=0;
 	int input[3] = {0,0,0};
 	int resultBtnPress; //the integer value of the key pressed, between 0 & 100
+
+	TPM_StartTimer(BOARD_TPM_BASEADDR, kTPM_SystemClock);
 
 	while(1){
 		enum button pressed = kb->getKey();

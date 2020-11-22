@@ -6,28 +6,26 @@
  */
 
 #include "Led.h"
+#include <stdio.h>
+#include "board.h"
+#include "peripherals.h"
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "MKL27Z644.h"
+#include "fsl_debug_console.h"
+#include "fsl_tpm.h"
 
 Led::Led() {
-    gpio_pin_config_t config;
-
-    config.pinDirection = kGPIO_DigitalOutput;
-    // on cree une config en mode output cette fois ci. Mode sortie pour écrire le status des LEDs.
-    config.outputLogic = 1;
-
-    GPIO_PinInit(GPIOA, BOARD_LED_BLUE_GPIO_PIN, &config);
-    GPIO_PinInit(GPIOB, BOARD_LED_RED_GPIO_PIN , &config);
-    GPIO_PinInit(GPIOB, BOARD_LED_GREEN_GPIO_PIN , &config);
-
 
 }
 void Led::setBlue(int value){
-
+	//TPM_UpdatePwmDutycycle(BOARD_TIMER_PERIPHERAL, kTPM_Chnl_3, kTPM_EdgeAlignedPwm, value);
 }
 void Led::setGreen(int value){
-
+	//TPM_UpdatePwmDutycycle(BOARD_TIMER_PERIPHERAL, kTPM_Chnl_2, kTPM_EdgeAlignedPwm, value);
 }
 void Led::setRed(int value){
-
+	//TPM_UpdatePwmDutycycle(BOARD_TIMER_PERIPHERAL, kTPM_Chnl_1, kTPM_EdgeAlignedPwm, value);
 }
 
 

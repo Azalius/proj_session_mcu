@@ -21,6 +21,7 @@ source/proj_ses_cpp.o source/proj_ses_cpp.d: ../source/proj_ses_cpp.cpp \
  C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\component\serial_manager/serial_manager.h \
  C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\component\serial_manager/serial_port_uart.h \
  C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\component\uart/uart.h \
+ C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\drivers/fsl_tpm.h \
  ../source/Keyboard.h ../source/Led.h ../source/Fan.h
 
 C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\board/board.h:
@@ -66,6 +67,8 @@ C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\comp
 C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\component\serial_manager/serial_port_uart.h:
 
 C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\component\uart/uart.h:
+
+C:\Users\Azalius\Documents\MCUXpressoIDE_11.2.0_4120\workspace\proj_ses_cpp\drivers/fsl_tpm.h:
 
 ../source/Keyboard.h:
 

@@ -6,6 +6,15 @@
  */
 
 #include "Keyboard.h"
+#include <stdio.h>
+#include "board.h"
+#include "peripherals.h"
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "MKL27Z644.h"
+#include "fsl_debug_console.h"
+#include "fsl_tpm.h"
+#include "fsl_gpio.h"
 
 Keyboard::Keyboard() {
 
@@ -31,7 +40,7 @@ enum button Keyboard::getKey(){
 		GPIO_PinWrite(COLS_BOARD, this->pin_cols[(i-1)%4], 0);
 		GPIO_PinWrite(COLS_BOARD, this->pin_cols[i], 1);
 		for (int j = 0 ; j <= 4 ; j++){
-			if(GPIO_ReadPinInput(GPIO, ROWS_BOARD, this->pin_cols[j])){
+			if(GPIO_PinRead(ROWS_BOARD, this->pin_cols[j])){
 				aret = this->layout[i][j];
 			}
 		}

@@ -1,1 +1,3 @@
-proj_ses_cpp.cpp:22:5:int main()	56	static
+fsl_clock.h:476:20:void CLOCK_SetTpmClock(uint32_t)	16	static
+fsl_tpm.h:608:20:void TPM_StartTimer(TPM_Type*, tpm_clock_source_t)	24	static
+proj_ses_cpp.cpp:26:5:int main()	64	static

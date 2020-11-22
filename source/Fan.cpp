@@ -6,18 +6,23 @@
  */
 
 #include "Fan.h"
+#include <stdio.h>
+#include "board.h"
+#include "peripherals.h"
+#include "pin_mux.h"
+#include "clock_config.h"
+#include "MKL27Z644.h"
+#include "fsl_debug_console.h"
+#include "fsl_tpm.h"
 
 Fan::Fan() {
-	gpio_pin_config_t config;
-
-	config.pinDirection = kGPIO_DigitalOutput;
-	// on cree une config en mode output cette fois ci. Mode sortie pour écrire le status des LEDs.
-	config.outputLogic = 1;
-
-	GPIO_PinInit(GPIOB, PIN_FAN , &config); //todo right board?
-
+		tpm_chnl_pwm_signal_param_t tpmParam;
+	    tpmParam.chnlNumber       = (tpm_chnl_t)FAN_CHANNEL;
+	    tpmParam.level            = kTPM_HighTrue;
+	    tpmParam.dutyCyclePercent = 0U;
+	    TPM_SetupPwm(BOARD_TPM_BASEADDR, &tpmParam, 1U, kTPM_EdgeAlignedPwm, 24000U, TPM_SOURCE_CLOCK);
 }
 
 void Fan::setSpeed(int value){
-
+	TPM_UpdatePwmDutycycle(BOARD_TPM_BASEADDR, FAN_CHANNEL, kTPM_EdgeAlignedPwm, value);
 }

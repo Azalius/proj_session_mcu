@@ -1,2 +1,2 @@
-Fan.cpp:10:1:Fan::Fan()	16	static
-Fan.cpp:15:6:void Fan::setSpeed(int)	16	static
+Fan.cpp:18:1:Fan::Fan()	40	static
+Fan.cpp:26:6:void Fan::setSpeed(int)	16	static

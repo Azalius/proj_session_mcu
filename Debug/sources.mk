@@ -26,7 +26,9 @@ C_DEPS :=
 SUBDIRS := \
 board \
 component/lists \
+component/pwm \
 component/serial_manager \
+component/timer \
 component/uart \
 device \
 drivers \

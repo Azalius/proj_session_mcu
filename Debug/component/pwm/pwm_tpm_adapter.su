@@ -1,0 +1,5 @@
+fsl_tpm.h:608:20:TPM_StartTimer	24	static
+pwm_tpm_adapter.c:36:18:HAL_PwmInit	48	static
+pwm_tpm_adapter.c:54:6:HAL_PwmDeinit	24	static
+pwm_tpm_adapter.c:67:18:HAL_PwmSetupPwm	48	static
+pwm_tpm_adapter.c:97:18:HAL_PwmUpdateDutycycle	32	static
