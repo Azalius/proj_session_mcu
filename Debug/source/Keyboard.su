@@ -1,4 +1,4 @@
 fsl_gpio.h:162:20:void GPIO_PinWrite(GPIO_Type*, uint32_t, uint8_t)	32	static
 fsl_gpio.h:223:24:uint32_t GPIO_PinRead(GPIO_Type*, uint32_t)	16	static
 Keyboard.cpp:19:1:Keyboard::Keyboard()	40	static
-Keyboard.cpp:36:13:button Keyboard::getKey()	32	static
+Keyboard.cpp:36:13:button Keyboard::getKey()	40	static

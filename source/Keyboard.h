@@ -17,8 +17,10 @@
 #include "fsl_debug_console.h"
 #include "fsl_tpm.h"
 
-#define COLS_BOARD GPIOA
-#define ROWS_BOARD GPIOB
+#define SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_CoreSysClk)
+
+#define COLS_BOARD GPIOC
+#define ROWS_BOARD GPIOD
 
 enum button {
 	zero = 0,
@@ -36,7 +38,8 @@ enum button {
 	blue=12,
 	cancel=13,
 	none=14,
-	fanBtn=15
+	fanBtn=15,
+	valider=16
 };
 
 class Keyboard {
@@ -48,10 +51,10 @@ private:
 			one, two, three, red,
 			four, five, six, green,
 			seven, eight, nine, blue,
-			cancel, zero, cancel, fanBtn
+			cancel, zero, valider, fanBtn
 	};
-	int pin_rows[4] = {1,2,3,4};
-	int pin_cols[4] = {1,2,3,4};
+	int pin_rows[4] = {2,3,4,5};
+	int pin_cols[4] = {4,6,7,5};
 };
 
 #endif /* KEYBOARD_H_ */

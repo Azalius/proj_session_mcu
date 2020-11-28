@@ -5,6 +5,7 @@
  * @brief   Application entry point.
  */
 #include <stdio.h>
+#include <math.h>
 #include "board.h"
 #include "peripherals.h"
 #include "pin_mux.h"
@@ -18,6 +19,27 @@
 #include "Fan.h"
 #define BOARD_TPM_BASEADDR       TPM2
 #define TPM_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_McgIrc48MClk)
+
+int nbDigit = 4;
+int isLocked=1;
+
+void resetInput(int* input, int* posCursor){
+	for (int i = 0; i < nbDigit;i++){
+		input[i]=0;
+	}
+	*posCursor = 0;
+}
+void lock(){
+	isLocked=1;
+	GPIO_PinWrite(GPIOB, BOARD_LED_GREEN_GPIO_PIN, 0);
+	GPIO_PinWrite(GPIOB, BOARD_LED_RED_GPIO_PIN, 1);
+}
+
+void unlock(){
+	isLocked=0;
+	GPIO_PinWrite(GPIOB, BOARD_LED_GREEN_GPIO_PIN, 1);
+	GPIO_PinWrite(GPIOB, BOARD_LED_RED_GPIO_PIN, 0);
+}
 
 
 /*
@@ -34,50 +56,57 @@ int main(void) {
     BOARD_InitDebugConsole();
 #endif
 
-    CLOCK_SetTpmClock(1U);
 
-    tpm_config_t tpmInfo;
-	TPM_GetDefaultConfig(&tpmInfo);
-	TPM_StartTimer(BOARD_TPM_BASEADDR, kTPM_SystemClock);
-	TPM_Init(BOARD_TPM_BASEADDR, &tpmInfo);
+	gpio_pin_config_t config;
+	config.pinDirection = kGPIO_DigitalOutput;
+	config.outputLogic = 0;
+	GPIO_PinInit(GPIOB, BOARD_LED_RED_GPIO_PIN, &config);
+	GPIO_PinInit(GPIOB, BOARD_LED_GREEN_GPIO_PIN , &config);
+
 
 	Keyboard* kb = new Keyboard();
-	Led* led = new Led();
-	Fan* fan = new Fan();
+
+
+	int code=1234;
+
 	int posCursor=0;
-	int input[3] = {0,0,0};
-	int resultBtnPress; //the integer value of the key pressed, between 0 & 100
+	int input[nbDigit];
+	resetInput(input, &posCursor);
+	lock();
+	int resultBtnPress; //the integer value of the key pressed, between 0 & 10^nbDigit
 
-	TPM_StartTimer(BOARD_TPM_BASEADDR, kTPM_SystemClock);
-
+	printf("Started\n");
 	while(1){
 		enum button pressed = kb->getKey();
 		if (pressed != none){
 			if (pressed==cancel){
-				posCursor=0;
-				input[0]=0;input[1]=0;input[2]=0;
+				resetInput(input, &posCursor);
+				lock();
 			}
 			else if (pressed <= 9){
 				input[posCursor] = (int)pressed;
+				printf("%d\n", input[posCursor]);
 				posCursor ++;
-				posCursor %=3;
-			}else{ // if were are setting an output
+				posCursor %=nbDigit;
+			}else if (pressed==valider){
 				resultBtnPress=0;
-				for (int i = posCursor; i >=0 ; i++){
-					resultBtnPress += input[posCursor-i]*10^(posCursor-i);
-				}
-				if (pressed==red){
-					led->setRed(resultBtnPress);
-				}else if (pressed==blue){
-					led->setBlue(resultBtnPress);
-				}else if(pressed==green){
-					led->setGreen(resultBtnPress);
-				}else if(pressed==fanBtn){
-					fan->setSpeed(resultBtnPress);
+				for (int i = 0; i <nbDigit ; i++){
+					resultBtnPress += input[i]*pow(10,nbDigit-i-1);
 				}
 
-				posCursor=0;
-			}
+				if(isLocked){
+					if(resultBtnPress == code){
+						unlock();
+						printf("Unlocked with %d\n", resultBtnPress);
+					}else{
+						printf("Wrong code : %d\n", resultBtnPress);
+					}
+				}else{
+					code=resultBtnPress;
+					printf("New code is %d\n", code);
+				}
+				resetInput(input, &posCursor);
+     		}
 		}
 	}
 	return 0 ;

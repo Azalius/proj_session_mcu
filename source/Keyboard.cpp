@@ -34,14 +34,25 @@ Keyboard::Keyboard() {
 }
 
 enum button Keyboard::getKey(){
+
+
+
 	enum button aret=none;
 	for(int i = 0 ; i < 4; i++){
 		//on power uniquement la ligne dont on a besoin
 		GPIO_PinWrite(COLS_BOARD, this->pin_cols[(i-1)%4], 0);
 		GPIO_PinWrite(COLS_BOARD, this->pin_cols[i], 1);
-		for (int j = 0 ; j <= 4 ; j++){
-			if(GPIO_PinRead(ROWS_BOARD, this->pin_cols[j])){
-				aret = this->layout[i][j];
+
+		uint32_t d = SOURCE_CLOCK / 1000 * 1;
+		uint32_t cnt;
+		for (cnt = 0U; cnt < d; ++cnt)
+		{
+			__asm("NOP");
+		}
+
+		for (int j = 0 ; j < 4  ; j++){
+			if(GPIO_PinRead(ROWS_BOARD, this->pin_rows[j])){
+				aret = this->layout[j][i];
 			}
 		}
 	}

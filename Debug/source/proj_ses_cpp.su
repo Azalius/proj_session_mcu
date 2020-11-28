@@ -1,3 +1,6 @@
-fsl_clock.h:476:20:void CLOCK_SetTpmClock(uint32_t)	16	static
-fsl_tpm.h:608:20:void TPM_StartTimer(TPM_Type*, tpm_clock_source_t)	24	static
-proj_ses_cpp.cpp:26:5:int main()	64	static
+fsl_gpio.h:162:20:void GPIO_PinWrite(GPIO_Type*, uint32_t, uint8_t)	32	static
+proj_ses_cpp.cpp:26:6:void resetInput(int*, int*)	24	static
+proj_ses_cpp.cpp:32:6:void lock()	8	static
+proj_ses_cpp.cpp:38:6:void unlock()	8	static
+proj_ses_cpp.cpp:48:5:int main()	80	dynamic
+cmath:415:5:constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::pow(_Tp, _Up) [with _Tp = int; _Up = int]	24	static

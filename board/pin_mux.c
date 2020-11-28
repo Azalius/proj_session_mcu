@@ -104,7 +104,16 @@ void BOARD_InitBootPins(void)
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
 - options: {callFromInitBoot: 'true', prefix: BOARD_, coreID: core0, enableClock: 'true'}
-- pin_list: []
+- pin_list:
+  - {pin_num: '49', peripheral: GPIOC, signal: 'GPIO, 4', pin_signal: PTC4/LLWU_P8/SPI0_PCS0/LPUART1_TX/TPM0_CH3/SPI1_PCS0}
+  - {pin_num: '51', peripheral: GPIOC, signal: 'GPIO, 6', pin_signal: CMP0_IN0/PTC6/LLWU_P10/SPI0_MOSI/EXTRG_IN/SPI0_MISO}
+  - {pin_num: '52', peripheral: GPIOC, signal: 'GPIO, 7', pin_signal: CMP0_IN1/PTC7/SPI0_MISO/USB_SOF_OUT/SPI0_MOSI}
+  - {pin_num: '50', peripheral: GPIOC, signal: 'GPIO, 5', pin_signal: PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/CMP0_OUT}
+  - {pin_num: '28', peripheral: GPIOA, signal: 'GPIO, 12', pin_signal: PTA12/TPM1_CH0}
+  - {pin_num: '62', peripheral: GPIOD, signal: 'GPIO, 5', pin_signal: ADC0_SE6b/PTD5/SPI1_SCK/UART2_TX/TPM0_CH5/FXIO0_D5}
+  - {pin_num: '61', peripheral: GPIOD, signal: 'GPIO, 4', pin_signal: PTD4/LLWU_P14/SPI1_PCS0/UART2_RX/TPM0_CH4/FXIO0_D4}
+  - {pin_num: '60', peripheral: GPIOD, signal: 'GPIO, 3', pin_signal: PTD3/SPI0_MISO/UART2_TX/TPM0_CH3/SPI0_MOSI/FXIO0_D3}
+  - {pin_num: '59', peripheral: GPIOD, signal: 'GPIO, 2', pin_signal: PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO/FXIO0_D2}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -117,6 +126,39 @@ BOARD_InitPins:
  * END ****************************************************************************************************************/
 void BOARD_InitPins(void)
 {
+    /* Port A Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortA);
+    /* Port C Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortC);
+    /* Port D Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortD);
+
+    /* PORTA12 (pin 28) is configured as PTA12 */
+    PORT_SetPinMux(BOARD_TPM1_CH0_PORT, BOARD_TPM1_CH0_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC4 (pin 49) is configured as PTC4 */
+    PORT_SetPinMux(BOARD_SPI0_CS0_PORT, BOARD_SPI0_CS0_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC5 (pin 50) is configured as PTC5 */
+    PORT_SetPinMux(BOARD_SPI0_SCK_PORT, BOARD_SPI0_SCK_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC6 (pin 51) is configured as PTC6 */
+    PORT_SetPinMux(BOARD_SPI0_MOSI_PORT, BOARD_SPI0_MOSI_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC7 (pin 52) is configured as PTC7 */
+    PORT_SetPinMux(BOARD_SPI0_MISO_PORT, BOARD_SPI0_MISO_PIN, kPORT_MuxAsGpio);
+
+    /* PORTD2 (pin 59) is configured as PTD2 */
+    PORT_SetPinMux(PORTD, 2U, kPORT_MuxAsGpio);
+
+    /* PORTD3 (pin 60) is configured as PTD3 */
+    PORT_SetPinMux(PORTD, 3U, kPORT_MuxAsGpio);
+
+    /* PORTD4 (pin 61) is configured as PTD4 */
+    PORT_SetPinMux(BOARD_SDA_LED_PORT, BOARD_SDA_LED_PIN, kPORT_MuxAsGpio);
+
+    /* PORTD5 (pin 62) is configured as PTD5 */
+    PORT_SetPinMux(PORTD, 5U, kPORT_MuxAsGpio);
 }
 
 /* clang-format off */
