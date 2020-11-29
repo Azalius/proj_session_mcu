@@ -114,6 +114,8 @@ BOARD_InitPins:
   - {pin_num: '61', peripheral: GPIOD, signal: 'GPIO, 4', pin_signal: PTD4/LLWU_P14/SPI1_PCS0/UART2_RX/TPM0_CH4/FXIO0_D4}
   - {pin_num: '60', peripheral: GPIOD, signal: 'GPIO, 3', pin_signal: PTD3/SPI0_MISO/UART2_TX/TPM0_CH3/SPI0_MOSI/FXIO0_D3}
   - {pin_num: '59', peripheral: GPIOD, signal: 'GPIO, 2', pin_signal: PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO/FXIO0_D2}
+  - {pin_num: '37', peripheral: GPIOB, signal: 'GPIO, 2', pin_signal: ADC0_SE12/PTB2/I2C0_SCL/TPM2_CH0}
+  - {pin_num: '38', peripheral: GPIOB, signal: 'GPIO, 3', pin_signal: ADC0_SE13/PTB3/I2C0_SDA/TPM2_CH1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -128,6 +130,8 @@ void BOARD_InitPins(void)
 {
     /* Port A Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortA);
+    /* Port B Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortB);
     /* Port C Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortC);
     /* Port D Clock Gate Control: Clock enabled */
@@ -135,6 +139,12 @@ void BOARD_InitPins(void)
 
     /* PORTA12 (pin 28) is configured as PTA12 */
     PORT_SetPinMux(BOARD_TPM1_CH0_PORT, BOARD_TPM1_CH0_PIN, kPORT_MuxAsGpio);
+
+    /* PORTB2 (pin 37) is configured as PTB2 */
+    PORT_SetPinMux(PORTB, 2U, kPORT_MuxAsGpio);
+
+    /* PORTB3 (pin 38) is configured as PTB3 */
+    PORT_SetPinMux(PORTB, 3U, kPORT_MuxAsGpio);
 
     /* PORTC4 (pin 49) is configured as PTC4 */
     PORT_SetPinMux(BOARD_SPI0_CS0_PORT, BOARD_SPI0_CS0_PIN, kPORT_MuxAsGpio);

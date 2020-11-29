@@ -4,9 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../source/Fan.cpp \
 ../source/Keyboard.cpp \
-../source/Led.cpp \
 ../source/cpp_config.cpp \
 ../source/proj_ses_cpp.cpp 
 
@@ -15,18 +13,14 @@ C_SRCS += \
 ../source/semihost_hardfault.c 
 
 OBJS += \
-./source/Fan.o \
 ./source/Keyboard.o \
-./source/Led.o \
 ./source/cpp_config.o \
 ./source/mtb.o \
 ./source/proj_ses_cpp.o \
 ./source/semihost_hardfault.o 
 
 CPP_DEPS += \
-./source/Fan.d \
 ./source/Keyboard.d \
-./source/Led.d \
 ./source/cpp_config.d \
 ./source/proj_ses_cpp.d 
 

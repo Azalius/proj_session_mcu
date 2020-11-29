@@ -121,6 +121,8 @@
                   <pin peripheral="GPIOD" signal="GPIO, 4" pin_num="61" pin_signal="PTD4/LLWU_P14/SPI1_PCS0/UART2_RX/TPM0_CH4/FXIO0_D4"/>
                   <pin peripheral="GPIOD" signal="GPIO, 3" pin_num="60" pin_signal="PTD3/SPI0_MISO/UART2_TX/TPM0_CH3/SPI0_MOSI/FXIO0_D3"/>
                   <pin peripheral="GPIOD" signal="GPIO, 2" pin_num="59" pin_signal="PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO/FXIO0_D2"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 2" pin_num="37" pin_signal="ADC0_SE12/PTB2/I2C0_SCL/TPM2_CH0"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 3" pin_num="38" pin_signal="ADC0_SE13/PTB3/I2C0_SDA/TPM2_CH1"/>
                </pins>
             </function>
             <function name="BOARD_InitLEDsPins">

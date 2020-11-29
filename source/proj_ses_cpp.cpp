@@ -15,8 +15,7 @@
 #include "fsl_tpm.h"
 
 #include "Keyboard.h"
-#include "Led.h"
-#include "Fan.h"
+
 #define BOARD_TPM_BASEADDR       TPM2
 #define TPM_SOURCE_CLOCK CLOCK_GetFreq(kCLOCK_McgIrc48MClk)
 
@@ -31,14 +30,14 @@ void resetInput(int* input, int* posCursor){
 }
 void lock(){
 	isLocked=1;
-	GPIO_PinWrite(GPIOB, BOARD_LED_GREEN_GPIO_PIN, 0);
-	GPIO_PinWrite(GPIOB, BOARD_LED_RED_GPIO_PIN, 1);
+	GPIO_PinWrite(GPIOB, 2, 0);
+	GPIO_PinWrite(GPIOB, 3, 1);
 }
 
 void unlock(){
 	isLocked=0;
-	GPIO_PinWrite(GPIOB, BOARD_LED_GREEN_GPIO_PIN, 1);
-	GPIO_PinWrite(GPIOB, BOARD_LED_RED_GPIO_PIN, 0);
+	GPIO_PinWrite(GPIOB, 2, 1);
+	GPIO_PinWrite(GPIOB, 3, 0);
 }
 
 
@@ -60,8 +59,8 @@ int main(void) {
 	gpio_pin_config_t config;
 	config.pinDirection = kGPIO_DigitalOutput;
 	config.outputLogic = 0;
-	GPIO_PinInit(GPIOB, BOARD_LED_RED_GPIO_PIN, &config);
-	GPIO_PinInit(GPIOB, BOARD_LED_GREEN_GPIO_PIN , &config);
+	GPIO_PinInit(GPIOB, 2, &config);
+	GPIO_PinInit(GPIOB, 3 , &config);
 
 
 	Keyboard* kb = new Keyboard();
