@@ -22,18 +22,20 @@
 int nbDigit = 4;
 int isLocked=1;
 
+// on remet tout à 0, comme si l'utilisateur n'avait rien tapé
 void resetInput(int* input, int* posCursor){
 	for (int i = 0; i < nbDigit;i++){
 		input[i]=0;
 	}
 	*posCursor = 0;
 }
+//verouiller le lock
 void lock(){
 	isLocked=1;
 	GPIO_PinWrite(GPIOB, 2, 0);
 	GPIO_PinWrite(GPIOB, 3, 1);
 }
-
+//deverouiller el lock
 void unlock(){
 	isLocked=0;
 	GPIO_PinWrite(GPIOB, 2, 1);
@@ -77,19 +79,19 @@ int main(void) {
 	printf("Started\n");
 	while(1){
 		enum button pressed = kb->getKey();
-		if (pressed != none){
-			if (pressed==cancel){
+		if (pressed != none){ //si un bouton est apppuyé
+			if (pressed==cancel){ //si on veut lock
 				resetInput(input, &posCursor);
 				lock();
 			}
-			else if (pressed <= 9){
+			else if (pressed <= 9){ //si on a presse un chiffre
 				input[posCursor] = (int)pressed;
 				printf("%d\n", input[posCursor]);
 				posCursor ++;
 				posCursor %=nbDigit;
 			}else if (pressed==valider){
 				resultBtnPress=0;
-				for (int i = 0; i <nbDigit ; i++){
+				for (int i = 0; i <nbDigit ; i++){//pour transformer l'aaray de nombre en un entier
 					resultBtnPress += input[i]*pow(10,nbDigit-i-1);
 				}
 

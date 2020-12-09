@@ -23,34 +23,25 @@ Keyboard::Keyboard() {
 	config.pinDirection = kGPIO_DigitalOutput;
 	config.outputLogic = 0;
 
-	for(int i = 0; i < 4 ; i++){ //cols init
+	for(int i = 0; i < 4 ; i++){ //On set tout les GPIO collone en output
 		GPIO_PinInit(COLS_BOARD, this->pin_cols[i] , &config);
 	}
 	config.pinDirection = kGPIO_DigitalInput;
-	for(int i = 0; i < 4 ; i++){ //rows init
+	for(int i = 0; i < 4 ; i++){ //On set tout les GPIO ligne en intput
 		GPIO_PinInit(ROWS_BOARD, this->pin_rows[i] , &config);
 	}
 
 }
 
 enum button Keyboard::getKey(){
-
-
-
 	enum button aret=none;
 	for(int i = 0 ; i < 4; i++){
-		//on power uniquement la ligne dont on a besoin
+		//on power uniquement la colonne dont on a besoin
 		GPIO_PinWrite(COLS_BOARD, this->pin_cols[(i-1)%4], 0);
 		GPIO_PinWrite(COLS_BOARD, this->pin_cols[i], 1);
 
-		uint32_t d = SOURCE_CLOCK / 1000 * 1;
-		uint32_t cnt;
-		for (cnt = 0U; cnt < d; ++cnt)
-		{
-			__asm("NOP");
-		}
-
-		for (int j = 0 ; j < 4  ; j++){
+		for (int j = 0 ; j < 4  ; j++){ //on parcours toutes les lignes voir
+			//si une d'entre elle est haut. Si c'est le cas on retournce cette valeur
 			if(GPIO_PinRead(ROWS_BOARD, this->pin_rows[j])){
 				aret = this->layout[j][i];
 			}
